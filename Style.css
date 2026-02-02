@@ -1,1 +1,331 @@
 
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #f1f1f1;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+h1 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #a0a0c0;
+    font-style: italic;
+}
+
+/* Game Area */
+.game-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.player-section, .computer-section {
+    flex: 1;
+    text-align: center;
+}
+
+.vs-section {
+    flex: 0.5;
+    text-align: center;
+}
+
+.player-section h2, .computer-section h2, .vs-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #4ecdc4;
+}
+
+.vs-circle {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, #ff6b6b, #ffa36c);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 auto;
+    color: white;
+    box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+}
+
+.choice-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.icon {
+    font-size: 4rem;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.icon:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #4ecdc4;
+}
+
+.computer-icon {
+    cursor: default;
+    border-color: #ff6b6b;
+}
+
+.computer-icon:hover {
+    transform: none;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.choice-display {
+    margin-top: 15px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.choice-display p {
+    font-size: 1.2rem;
+    color: #a0a0c0;
+}
+
+/* Rules Section */
+.rules {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.rules h3 {
+    color: #4ecdc4;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
+
+.rules ul {
+    list-style: none;
+    padding-left: 20px;
+}
+
+.rules li {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.rules li:last-child {
+    border-bottom: none;
+}
+
+/* Results Section */
+.results {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.results h3 {
+    color: #4ecdc4;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+#results-display {
+    min-height: 150px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.result-card {
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    border-left: 4px solid #4ecdc4;
+}
+
+.result-card.player-wins {
+    border-left-color: #4ecdc4;
+}
+
+.result-card.computer-wins {
+    border-left-color: #ff6b6b;
+}
+
+.result-card.tie {
+    border-left-color: #ffa36c;
+}
+
+.winner-box {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.winner-box h3 {
+    color: #ffa36c;
+    margin-bottom: 10px;
+}
+
+.game-info {
+    font-size: 0.9rem;
+    color: #888;
+    font-style: italic;
+    margin-top: 15px;
+}
+
+.error {
+    color: #ff6b6b;
+    text-align: center;
+    padding: 20px;
+}
+
+
+#play-button {
+    display: block;
+    width: 100%;
+    padding: 18px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+#play-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(78, 205, 196, 0.3);
+    background: linear-gradient(45deg, #45b7d1, #4ecdc4);
+}
+
+#play-button:active {
+    transform: translateY(-1px);
+}
+
+
+.console-info {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.console-info h3 {
+    color: #4ecdc4;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
+
+.console-info p {
+    color: #a0a0c0;
+    line-height: 1.6;
+}
+
+
+footer {
+    text-align: center;
+    padding: 25px;
+    margin-top: 40px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #888;
+}
+
+.repo-info {
+    font-family: monospace;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+
+@media (max-width: 768px) {
+    .game-area {
+        flex-direction: column;
+        gap: 40px;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    .icon {
+        font-size: 3rem;
+        width: 80px;
+        height: 80px;
+    }
+    
+    .vs-circle {
+        width: 60px;
+        height: 60px;
+        font-size: 1.2rem;
+    }
+}
