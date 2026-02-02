@@ -163,7 +163,7 @@ playButton.addEventListener('click', function() {
                 <h3>${gameResult}</h3>
                 <p>${resultMessage}</p>
             </div>
-            <p class="game-info">Computer is hard-coded to always choose Bear for this assignment.</p>
+            <p class="game-info">Computer is hard-coded to always choose Bear for now :)</p>
         </div>
     `;
     
