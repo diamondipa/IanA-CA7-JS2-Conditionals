@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Ian Aspevig">
+    <title>Bear Ninja Hunter Game</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐻</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐻 Bear Ninja Hunter 🎯</h1>
+            <p class="subtitle">A Game of Strategy and Choice</p>
+        </header>
+
+        <main>
+            <div class="game-area">
+                <div class="player-section">
+                    <h2>Player</h2>
+                    <div class="choice-icons">
+                        <div class="icon" data-choice="Bear">🐻</div>
+                        <div class="icon" data-choice="Ninja">🥷</div>
+                        <div class="icon" data-choice="Hunter">🎯</div>
+                    </div>
+                    <div class="choice-display">
+                        <p id="player-choice">Waiting for your choice...</p>
+                    </div>
+                </div>
+
+                <div class="vs-section">
+                    <h2>VS</h2>
+                    <div class="vs-circle">VS</div>
+                </div>
+
+                <div class="computer-section">
+                    <h2>Computer</h2>
+                    <div class="choice-icons">
+                        <div class="icon computer-icon">🐻</div>
+                    </div>
+                    <div class="choice-display">
+                        <p id="computer-choice">Always chooses Bear!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rules">
+                <h3>Game Rules</h3>
+                <ul>
+                    <li>🐻 <strong>Bear</strong> beats 🥷 Ninja (Bear mauls Ninja)</li>
+                    <li>🥷 <strong>Ninja</strong> beats 🎯 Hunter (Ninja ambushes Hunter)</li>
+                    <li>🎯 <strong>Hunter</strong> beats 🐻 Bear (Hunter shoots Bear)</li>
+                </ul>
+            </div>
+
+            <div class="results">
+                <h3>Game Results</h3>
+                <div id="results-display">
+                    <p>Click "Play Game" to start!</p>
+                </div>
+                <button id="play-button">🎮 Play Game</button>
+            </div>
+
+            <div class="console-info">
+                <h3>📟 Console Output</h3>
+                <p>Open Developer Tools (F12) and check the Console tab to see additional game details.</p>
+            </div>
+        </main>
+
+        <footer>
+            <p>Created by Ian Aspevig | JavaScript Conditional Logic Assignment</p>
+            <p class="repo-info">Repository: IanA-CA7-JS2-Conditionals</p>
+        </footer>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
