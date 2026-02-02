@@ -1,10 +1,5 @@
-// ============================================
-// BEAR NINJA HUNTER GAME - CONDITIONAL LOGIC
-// Created by: Ian Aspevig
-// Repository: IanA-CA7-JS2-Conditionals
-// ============================================
 
-// Get DOM elements
+
 const playButton = document.getElementById('play-button');
 const resultsDisplay = document.getElementById('results-display');
 const playerChoiceDisplay = document.getElementById('player-choice');
@@ -15,9 +10,7 @@ playButton.addEventListener('click', function() {
     // Clear previous results
     resultsDisplay.innerHTML = '';
     
-    // ============================================
-    // STEP 1: WELCOME PROMPT - Get player name
-    // ============================================
+  
     let playerName = prompt("Welcome to Bear Ninja Hunter!\n\nPlease enter your name:");
     
     // Check if user clicked Cancel or entered empty name
@@ -25,15 +18,11 @@ playButton.addEventListener('click', function() {
         playerName = "Player";
         alert("Hello Player! Let's play!");
     } else {
-        // ============================================
-        // STEP 2: PERSONALIZED GREETING ALERT
-        // ============================================
+       
         alert("Hello " + playerName + "! Let's play Bear Ninja Hunter!");
     }
     
-    // ============================================
-    // STEP 3: PLAYER CHOICE PROMPT
-    // ============================================
+
     let playerChoice = prompt(
         playerName + ", please choose one:\n" +
         "Enter 'Bear', 'Ninja', or 'Hunter'"
@@ -55,26 +44,20 @@ playButton.addEventListener('click', function() {
     // Capitalize first letter for consistency
     playerChoice = playerChoice.charAt(0).toUpperCase() + playerChoice.slice(1).toLowerCase();
     
-    // ============================================
-    // STEP 4: COMPUTER CHOICE (Hard-coded to Bear)
-    // ============================================
-    const computerChoice = "Bear"; // Hard-coded as per assignment
+ 
+    const computerChoice = "Bear"; 
     
     // Update display with choices
     playerChoiceDisplay.textContent = "Chose: " + playerChoice;
     computerChoiceDisplay.textContent = "Chose: " + computerChoice;
     
-    // ============================================
-    // STEP 5: DETERMINE WINNER WITH CONDITIONALS
-    // ============================================
+
     
     // Variable to store game result
     let gameResult = "";
     let resultMessage = "";
     
-    // ============================================
-    // METHOD 1: USING if...else if...else STATEMENTS
-    // ============================================
+ 
     console.log("=== Using if/else statements ===");
     
     if (playerChoice === computerChoice) {
@@ -123,13 +106,10 @@ playButton.addEventListener('click', function() {
         console.log("Result: Invalid choice - " + playerChoice);
     }
     
-    // ============================================
-    // METHOD 2: USING switch STATEMENT
-    // ============================================
+
     console.log("=== Using switch statement ===");
     
-    // Additional switch statement to demonstrate the concept
-    // This handles the player's choice with a switch
+  
     let switchResult = "";
     
     switch(playerChoice) {
@@ -172,10 +152,7 @@ playButton.addEventListener('click', function() {
     
     console.log("Switch statement result: " + switchResult);
     
-    // ============================================
-    // STEP 6: DISPLAY RESULTS (TWO OUTPUT METHODS)
-    // ============================================
-    
+  
     // METHOD 1: Output to HTML page
     let resultsHTML = `
         <div class="result-card ${gameResult.toLowerCase().replace(' ', '-')}">
@@ -192,8 +169,7 @@ playButton.addEventListener('click', function() {
     
     resultsDisplay.innerHTML = resultsHTML;
     
-    // METHOD 2: Output to Console (already done above)
-    // Additional console output for clarity
+    
     console.log("=================================");
     console.log("FINAL GAME RESULTS");
     console.log("=================================");
