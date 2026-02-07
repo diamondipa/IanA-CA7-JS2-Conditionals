@@ -4,76 +4,654 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Ian Aspevig">
-    <title>Bear Ninja Hunter Game</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐻</text></svg>">
+    <title>Bear Ninja Hunter Game - Part 3</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #f1f1f1;
+            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a0a0c0;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+        
+        .instructions {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .instructions h3 {
+            color: #4ecdc4;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        
+        .instructions ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .instructions li:last-child {
+            border-bottom: none;
+        }
+        
+        .game-info {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-box {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .info-box h3 {
+            color: #4ecdc4;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .results-display {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            min-height: 200px;
+        }
+        
+        .results-display h3 {
+            color: #4ecdc4;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        #gameOutput {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            min-height: 150px;
+            white-space: pre-line;
+            line-height: 1.8;
+        }
+        
+        .results-card {
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #4ecdc4;
+        }
+        
+        .results-card.player-wins {
+            border-left-color: #4ecdc4;
+        }
+        
+        .results-card.computer-wins {
+            border-left-color: #ff6b6b;
+        }
+        
+        .results-card.tie {
+            border-left-color: #ffa36c;
+        }
+        
+        .winner-box {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .winner-box h4 {
+            color: #ffa36c;
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .stats-box {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4ecdc4;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #a0a0c0;
+        }
+        
+        .console-info {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .console-info h3 {
+            color: #4ecdc4;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #888;
+        }
+        
+        .repo-info {
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .game-info {
+                flex-direction: column;
+            }
+            
+            .info-box {
+                min-width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>🐻 Bear Ninja Hunter 🎯</h1>
-            <p class="subtitle">A Game of Strategy and Choice</p>
+            <p class="subtitle">Part 3: Arrays, Loops, and Randomization</p>
+            <p>Game will start automatically. Follow the prompts in the browser.</p>
         </header>
-
+        
         <main>
-            <div class="game-area">
-                <div class="player-section">
-                    <h2>Player</h2>
-                    <div class="choice-icons">
-                        <div class="icon" data-choice="Bear">🐻</div>
-                        <div class="icon" data-choice="Ninja">🥷</div>
-                        <div class="icon" data-choice="Hunter">🎯</div>
-                    </div>
-                    <div class="choice-display">
-                        <p id="player-choice">Waiting for your choice...</p>
-                    </div>
-                </div>
-
-                <div class="vs-section">
-                    <h2>VS</h2>
-                    <div class="vs-circle">VS</div>
-                </div>
-
-                <div class="computer-section">
-                    <h2>Computer</h2>
-                    <div class="choice-icons">
-                        <div class="icon computer-icon">🐻</div>
-                    </div>
-                    <div class="choice-display">
-                        <p id="computer-choice">Always chooses Bear!</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="rules">
-                <h3>Game Rules</h3>
+            <div class="instructions">
+                <h3>🎮 How to Play</h3>
                 <ul>
                     <li>🐻 <strong>Bear</strong> beats 🥷 Ninja (Bear mauls Ninja)</li>
                     <li>🥷 <strong>Ninja</strong> beats 🎯 Hunter (Ninja ambushes Hunter)</li>
                     <li>🎯 <strong>Hunter</strong> beats 🐻 Bear (Hunter shoots Bear)</li>
+                    <li>🔄 Computer now chooses <strong>randomly</strong> each round!</li>
+                    <li>🔄 You can play <strong>multiple times</strong> in one session!</li>
                 </ul>
             </div>
-
-            <div class="results">
-                <h3>Game Results</h3>
-                <div id="results-display">
-                    <p>Click "Play Game" to start!</p>
+            
+            <div class="game-info">
+                <div class="info-box">
+                    <h3>📊 Game Features (Part 3)</h3>
+                    <ul>
+                        <li>✅ Array storage for game choices</li>
+                        <li>✅ Random computer selection</li>
+                        <li>✅ Loop for replay functionality</li>
+                        <li>✅ Forced case input handling</li>
+                        <li>✅ Detailed input validation</li>
+                        <li>✅ Cancel/empty input handling</li>
+                    </ul>
                 </div>
-                <button id="play-button">🎮 Play Game</button>
+                
+                <div class="info-box">
+                    <h3>🎯 New Concepts Used</h3>
+                    <ul>
+                        <li><code>Math.random()</code> for computer choice</li>
+                        <li>Arrays to store choices</li>
+                        <li><code>array.length</code> property</li>
+                        <li>Loops for replay functionality</li>
+                        <li>Forced case standardization</li>
+                        <li>Concatenation for messages</li>
+                    </ul>
+                </div>
             </div>
-
+            
+            <div class="results-display">
+                <h3>📈 Game Results</h3>
+                <div id="gameOutput">
+                    Game results will appear here as you play...
+                </div>
+            </div>
+            
             <div class="console-info">
                 <h3>📟 Console Output</h3>
-                <p>Open Developer Tools (F12) and check the Console tab to see additional game details.</p>
+                <p>Open Developer Tools (F12) and check the Console tab to see detailed game information.</p>
             </div>
         </main>
-
+        
         <footer>
-            <p>Created by Ian Aspevig | JavaScript Conditional Logic Assignment</p>
-            <p class="repo-info">Repository: IanA-CA7-JS2-Conditionals</p>
+            <p>Created by Ian Aspevig | JavaScript Assignment Part 3</p>
+            <p class="repo-info">Repository: CA8-JS3-BNH (Updated from Part 2)</p>
         </footer>
     </div>
 
-    <script src="game.js"></script>
+    <script>
+        // =============================================
+        // BEAR NINJA HUNTER GAME - PART 3
+        // =============================================
+        // Complete implementation meeting all Part 3 requirements
+        
+        console.log("========================================");
+        console.log("BEAR NINJA HUNTER - PART 3");
+        console.log("Repository: CA8-JS3-BNH");
+        console.log("Created by: Ian Aspevig");
+        console.log("========================================");
+        
+        // =============================================
+        // VARIABLE DECLARATIONS (All at the top)
+        // =============================================
+        
+        // Array to store game choices - using const because this won't change
+        const gameChoices = ["bear", "ninja", "hunter"];
+        
+        // Game statistics - using let because these will change
+        let playerWins = 0;
+        let computerWins = 0;
+        let ties = 0;
+        let totalGames = 0;
+        let playerName = "";
+        let keepPlaying = true;
+        
+        // DOM element reference
+        const gameOutput = document.getElementById('gameOutput');
+        
+        // =============================================
+        // HELPER FUNCTIONS
+        // =============================================
+        
+        function updateGameDisplay(message) {
+            // Update HTML page display
+            gameOutput.innerHTML = message;
+            
+            // Also log to console
+            console.log(message.replace(/<[^>]*>/g, ''));
+        }
+        
+        function formatName(name) {
+            // Capitalize first letter of each word
+            return name.split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                .join(' ');
+        }
+        
+        function getComputerChoice() {
+            // Generate random number between 0 and array length - 1
+            const randomIndex = Math.floor(Math.random() * gameChoices.length);
+            
+            // Get computer's choice from array using random index
+            return gameChoices[randomIndex];
+        }
+        
+        function determineWinner(playerChoice, computerChoice) {
+            // Determine winner based on game rules
+            
+            if (playerChoice === computerChoice) {
+                ties++;
+                return {
+                    winner: "tie",
+                    message: `It's a TIE! Both chose ${playerChoice}.`
+                };
+            }
+            
+            // Check all win conditions for player
+            if (
+                (playerChoice === "bear" && computerChoice === "ninja") ||
+                (playerChoice === "ninja" && computerChoice === "hunter") ||
+                (playerChoice === "hunter" && computerChoice === "bear")
+            ) {
+                playerWins++;
+                return {
+                    winner: "player",
+                    message: `${playerName} wins! ${capitalizeFirst(playerChoice)} beats ${capitalizeFirst(computerChoice)}!`
+                };
+            } else {
+                computerWins++;
+                return {
+                    winner: "computer",
+                    message: `Computer wins! ${capitalizeFirst(computerChoice)} beats ${capitalizeFirst(playerChoice)}!`
+                };
+            }
+        }
+        
+        function capitalizeFirst(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+        
+        function getGameStats() {
+            return `
+                <div class="stats-box">
+                    <div class="stat-item">
+                        <div class="stat-value">${totalGames}</div>
+                        <div class="stat-label">Total Games</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">${playerWins}</div>
+                        <div class="stat-label">${playerName}'s Wins</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">${computerWins}</div>
+                        <div class="stat-label">Computer Wins</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">${ties}</div>
+                        <div class="stat-label">Ties</div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // =============================================
+        // MAIN GAME FUNCTIONALITY
+        // =============================================
+        
+        function initializeGame() {
+            console.log("Initializing Bear Ninja Hunter Game...");
+            
+            // Display initial message on page
+            updateGameDisplay("<p>Welcome to Bear Ninja Hunter!<br>Game will start with a prompt...</p>");
+            
+            // Start the game loop
+            gameLoop();
+        }
+        
+        function gameLoop() {
+            // =============================================
+            // STEP 1: GET PLAYER NAME
+            // =============================================
+            
+            playerName = prompt("Welcome to Bear Ninja Hunter!\n\nPlease enter your name:");
+            
+            // Handle cancel button on name prompt
+            if (playerName === null) {
+                // User clicked cancel
+                updateGameDisplay("<p class='error'>Game cancelled. Please refresh to play again.</p>");
+                console.log("Game cancelled by user at name prompt.");
+                return;
+            }
+            
+            // Handle empty name
+            playerName = playerName.trim();
+            if (playerName === "") {
+                updateGameDisplay("<p class='error'>Please enter a valid name. Refresh to start over.</p>");
+                console.log("Empty name entered. Game ended.");
+                return;
+            }
+            
+            // Format name nicely
+            playerName = formatName(playerName);
+            
+            // Greet the player
+            alert(`Hello ${playerName}! Let's play Bear Ninja Hunter!`);
+            console.log(`Player name set to: ${playerName}`);
+            
+            // Main game play loop
+            while (keepPlaying) {
+                // =============================================
+                // STEP 2: GET PLAYER'S CHOICE
+                // =============================================
+                
+                totalGames++;
+                
+                let playerChoice = prompt(
+                    `${playerName}, please choose:\n` +
+                    `• Bear (beats Hunter)\n` +
+                    `• Ninja (beats Bear)\n` +
+                    `• Hunter (beats Ninja)\n\n` +
+                    `Enter your choice:`
+                );
+                
+                // Handle cancel button on choice prompt
+                if (playerChoice === null) {
+                    alert("Game cancelled. Thanks for playing!");
+                    keepPlaying = false;
+                    
+                    // Display final results
+                    displayFinalResults();
+                    continue;
+                }
+                
+                // =============================================
+                // STEP 3: INPUT VALIDATION AND FORCED CASE
+                // =============================================
+                
+                // Trim whitespace and convert to lowercase (forced case)
+                playerChoice = playerChoice.trim().toLowerCase();
+                
+                // Validate input is not empty
+                if (playerChoice === "") {
+                    alert("ERROR: No input received.\n\nPlease enter either: Bear, Ninja, or Hunter");
+                    totalGames--; // Don't count this as a game
+                    continue; // Go back to start of loop
+                }
+                
+                // Validate choice is in our array
+                let validChoice = false;
+                // Loop through array to check if choice is valid
+                for (let i = 0; i < gameChoices.length; i++) {
+                    if (playerChoice === gameChoices[i]) {
+                        validChoice = true;
+                        break;
+                    }
+                }
+                
+                if (!validChoice) {
+                    // Using array.length property instead of hard-coding "3"
+                    alert(`ERROR: Invalid choice '${playerChoice}'\n\n` +
+                          `Please choose one of the ${gameChoices.length} valid options:\n` +
+                          `• Bear\n• Ninja\n• Hunter`);
+                    totalGames--; // Don't count this as a game
+                    continue; // Go back to start of loop
+                }
+                
+                // =============================================
+                // STEP 4: GET COMPUTER'S RANDOM CHOICE
+                // =============================================
+                
+                const computerChoice = getComputerChoice();
+                
+                // =============================================
+                // STEP 5: DETERMINE WINNER
+                // =============================================
+                
+                const result = determineWinner(playerChoice, computerChoice);
+                
+                // =============================================
+                // STEP 6: DISPLAY RESULTS AND ASK TO PLAY AGAIN
+                // =============================================
+                
+                // Create result card HTML
+                const resultCardClass = result.winner === "player" ? "player-wins" : 
+                                      result.winner === "computer" ? "computer-wins" : "tie";
+                
+                const gameResultHTML = `
+                    <div class="results-card ${resultCardClass}">
+                        <h4>Game #${totalGames} Results</h4>
+                        <p><strong>${playerName}'s choice:</strong> ${capitalizeFirst(playerChoice)}</p>
+                        <p><strong>Computer's choice:</strong> ${capitalizeFirst(computerChoice)}</p>
+                        <div class="winner-box">
+                            <h4>${result.winner === "player" ? "🎉 PLAYER WINS!" : 
+                                 result.winner === "computer" ? "🤖 COMPUTER WINS!" : "🤝 IT'S A TIE!"}</h4>
+                            <p>${result.message}</p>
+                        </div>
+                    </div>
+                    ${getGameStats()}
+                `;
+                
+                // Update display with results
+                updateGameDisplay(gameResultHTML);
+                
+                // =============================================
+                // STEP 7: ASK TO PLAY AGAIN
+                // =============================================
+                
+                const playAgainResponse = prompt(
+                    `Game #${totalGames} Complete!\n\n` +
+                    `${result.message}\n\n` +
+                    `Current Score:\n` +
+                    `${playerName}: ${playerWins} | Computer: ${computerWins} | Ties: ${ties}\n\n` +
+                    `Do you want to play again?\n` +
+                    `Enter 'yes' to continue or 'no' to end the game:`
+                );
+                
+                // Handle play again response
+                if (playAgainResponse === null) {
+                    // User clicked cancel
+                    alert("Game session ended. Thanks for playing!");
+                    keepPlaying = false;
+                } else {
+                    // Convert response to lowercase and trim
+                    const response = playAgainResponse.trim().toLowerCase();
+                    
+                    if (response === "no" || response === "n") {
+                        keepPlaying = false;
+                    } else if (response !== "yes" && response !== "y") {
+                        // Invalid response
+                        alert("Invalid response. Game session ended.");
+                        keepPlaying = false;
+                    }
+                    // If response is "yes" or "y", loop continues
+                }
+            }
+            
+            // =============================================
+            // STEP 8: DISPLAY FINAL RESULTS
+            // =============================================
+            
+            displayFinalResults();
+        }
+        
+        function displayFinalResults() {
+            // Determine overall winner
+            let overallWinner = "";
+            if (playerWins > computerWins) {
+                overallWinner = `${playerName} is the overall WINNER! 🎉`;
+            } else if (computerWins > playerWins) {
+                overallWinner = "Computer is the overall WINNER! 🤖";
+            } else {
+                overallWinner = "It's a TIE overall! 🤝";
+            }
+            
+            // Final results HTML
+            const finalResultsHTML = `
+                <div class="results-card">
+                    <h4>🏆 Final Game Results 🏆</h4>
+                    <p><strong>Player:</strong> ${playerName}</p>
+                    <p><strong>Total Games Played:</strong> ${totalGames}</p>
+                    <p><strong>${playerName}'s Wins:</strong> ${playerWins}</p>
+                    <p><strong>Computer Wins:</strong> ${computerWins}</p>
+                    <p><strong>Ties:</strong> ${ties}</p>
+                    <div class="winner-box">
+                        <h4>${overallWinner}</h4>
+                    </div>
+                </div>
+                <p>Refresh the page to play again!</p>
+            `;
+            
+            // Update display
+            updateGameDisplay(finalResultsHTML);
+            
+            // Log final results to console (second output method)
+            console.log("========================================");
+            console.log("FINAL GAME RESULTS");
+            console.log("========================================");
+            console.log(`Player: ${playerName}`);
+            console.log(`Total Games: ${totalGames}`);
+            console.log(`${playerName}'s Wins: ${playerWins}`);
+            console.log(`Computer Wins: ${computerWins}`);
+            console.log(`Ties: ${ties}`);
+            console.log(`Overall Winner: ${overallWinner}`);
+            console.log("========================================");
+            
+            // Alert final message
+            alert(`Thanks for playing, ${playerName}!\n\nCheck the webpage for your final results!`);
+        }
+        
+        // =============================================
+        // START THE GAME
+        // =============================================
+        
+        // Initialize game when page loads
+        window.onload = initializeGame;
+        
+    </script>
 </body>
 </html>
