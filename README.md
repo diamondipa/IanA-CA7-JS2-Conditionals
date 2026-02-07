@@ -1,7 +1,7 @@
 #  Bear Ninja Hunter Game - Part 3 
 
-**Repository:** CA8-JS3-BNH  
-**Live Demo:** [GitHub Pages URL]
+**Repository:** Repo url - will add later
+**Live Demo:** Pages url - will add later
 
 ##  Assignment Summary
 This is the third iteration of the Bear Ninja Hunter game, implementing arrays, loops, randomization, and enhanced user interaction features.
