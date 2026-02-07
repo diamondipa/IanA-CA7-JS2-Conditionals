@@ -3,10 +3,10 @@
 **Repository:** CA8-JS3-BNH  
 **Live Demo:** [GitHub Pages URL]
 
-## 📋 Assignment Summary
+##  Assignment Summary
 This is the third iteration of the Bear Ninja Hunter game, implementing arrays, loops, randomization, and enhanced user interaction features.
 
-## 🎮 Game Description
+##  Game Description
 An interactive web-based game where players compete against a randomly-choosing computer in a Rock-Paper-Scissors style game with Bear, Ninja, and Hunter choices.
 
 ### Game Rules
