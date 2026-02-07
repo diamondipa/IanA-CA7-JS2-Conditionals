@@ -1,4 +1,4 @@
-# 🐻 Bear Ninja Hunter Game - Part 3 🎯
+#  Bear Ninja Hunter Game - Part 3 
 
 **Repository:** CA8-JS3-BNH  
 **Live Demo:** [GitHub Pages URL]
@@ -41,7 +41,7 @@ An interactive web-based game where players compete against a randomly-choosing 
 - Statistics tracking (wins, losses, ties)
 - Final results summary
 
-## 🛠️ Technical Implementation
+##  Technical Implementation
 
 ### Core Concepts Demonstrated
 - **Arrays**: Store and access game choices
